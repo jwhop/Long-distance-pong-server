@@ -1,0 +1,23 @@
+{
+  "name": "pong_server",
+  "version": "1.0.0",
+  "description": "Back-end to long distance pong project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwhop/Long-distance-pong-server.git"
+  },
+  "author": "Jonny Hopkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwhop/Long-distance-pong-server/issues"
+  },
+  "homepage": "https://github.com/jwhop/Long-distance-pong-server#readme",
+  "dependencies": {
+    "shortid": "^2.2.15",
+    "socket.io": "^2.3.0"
+  }
+}
