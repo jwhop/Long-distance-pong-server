@@ -1,6 +1,7 @@
 var io = require('socket.io')(process.env.PORT || 52300);
 
 var Player = require('./player.js');
+var Game = require('./game.js');
 
 console.log('server is started!');
 
@@ -16,6 +17,7 @@ io.on('connection', function(socket){
 	var thisPlayerID;
 	var game;
 	var thisGameID;
+	
 	socket.on('registering', function(data) {
 		console.log(data);
 		if (data.player_id == '0'){
@@ -56,13 +58,15 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('ready_host', function(data) {
-		console.log(data);
+		console.log('received ready host');
 		game = new Game();
+		console.log('made new game');
 		thisGameID = game.id;
 		games[thisGameID] = game;
 		players[thisPlayerID].current_games.push(game);
-		socket.emit('done_ready_host', game.id);
-		console.log(game.id);
+		console.log('game id is ' + game.id);
+		socket.emit('done_ready_host', {id: game.id});
+		
 		
 	});
 	
