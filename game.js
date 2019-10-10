@@ -16,6 +16,7 @@ module.exports = class Game{
 				this.remaining_time = -1;
 				this.remaining_distance_miles = -1;
 				this.remaining_distance_km = -1;
+				this.joinable = true;
 
 		}
 		
