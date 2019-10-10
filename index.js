@@ -86,7 +86,7 @@ io.on('connection', function(socket){
 				found = true;
 				game = games[game_data.id];
 				thisGameID = game_data.id;
-				gamed[gameID].joinable = false;
+				games[gameID].joinable = false;
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
 				sockets[gamed[gameID].player_left_id].emit('start_game');
