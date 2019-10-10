@@ -63,7 +63,7 @@ io.on('connection', function(socket){
 		console.log('made new game');
 		thisGameID = game.id;
 		games[thisGameID] = game;
-		game.left_player_id = thisPlayerID;
+		game.player_left_id = thisPlayerID;
 		players[thisPlayerID].current_games.push(game);
 		console.log('game id is ' + game.id);
 		socket.emit('done_ready_host', {id: game.id});
@@ -81,17 +81,17 @@ io.on('connection', function(socket){
 		for (var gameID in games){
 			console.log('the one that is stored is ' + gameID);
 			console.log('the one we got from unity is ' + game_data.id);
-			console.log(games[gameID].joinable);
+			
 			if(String(gameID) == String(game_data.id) && games[gameID].joinable == true){
 				console.log('success!!');
+				
 				found = true;
 				game = games[game_data.id];
 				thisGameID = game_data.id;
 				games[gameID].joinable = false;
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
-				console.log('the game object is ' + games[gameID].Object);
-				console.log('the other players id is ' + games[gameID].player_left_id);
+				console.log(games[gameID]);
 				sockets[games[gameID].player_left_id].emit('start_game');
 				//p2 socket
 				sockets[thisPlayerID].emit('start_game');
