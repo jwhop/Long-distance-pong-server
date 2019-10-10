@@ -90,6 +90,8 @@ io.on('connection', function(socket){
 				games[gameID].joinable = false;
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
+				console.log('the game object is ' + games[gameID]);
+				console.log('the other players id is ' + games[gameID].player_left_id);
 				sockets[games[gameID].player_left_id].emit('start_game');
 				//p2 socket
 				sockets[thisPlayerID].emit('start_game');
