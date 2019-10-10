@@ -57,7 +57,7 @@ io.on('connection', function(socket){
 	
 	socket.on('ready_host', function(data) {
 		console.log(data);
-		game = new game();
+		game = new Game();
 		thisGameID = game.id;
 		games[thisGameID] = game;
 		players[thisPlayerID].current_games.push(game);
