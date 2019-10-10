@@ -62,6 +62,7 @@ io.on('connection', function(socket){
 		games[thisGameID] = game;
 		players[thisPlayerID].current_games.push(game);
 		socket.emit('done_ready_host', game.id);
+		console.log(game.id);
 		
 	});
 	
