@@ -82,6 +82,7 @@ io.on('connection', function(socket){
 			console.log('the one we got from unity is ' + game_data.id);
 			console.log(games[gameID].joinable);
 			if(String(gameID) == String(game_data.id) && games[gameID].joinable == true){
+				console.log('success!!');
 				found = true;
 				game = games[game_data.id];
 				thisGameID = game_data.id;
