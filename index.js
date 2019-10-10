@@ -89,7 +89,7 @@ io.on('connection', function(socket){
 				games[gameID].joinable = false;
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
-				sockets[gamed[gameID].player_left_id].emit('start_game');
+				sockets[games[gameID].player_left_id].emit('start_game');
 				//p2 socket
 				sockets[thisPlayerID].emit('start_game');
 			}
