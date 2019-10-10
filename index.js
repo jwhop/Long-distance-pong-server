@@ -78,6 +78,8 @@ io.on('connection', function(socket){
 		//if not, emit just for p2 that it is not joinable
 		var found = false;
 		for (var gameID in games){
+			console.log('the one that is stored is ' + gameID);
+			console.log('the one we got from unity is ' + game_data.id);
 			if(gameID == game_data.id && games[gameID].playable == true){
 				found = true;
 				game = games[game_data.id];
