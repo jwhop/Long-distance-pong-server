@@ -41,10 +41,15 @@ io.on('connection', function(socket){
 			}*/
 		}
 		else{
-			console.log("returning player!");
-			player = players[data.player_id]
-			thisPlayerID = data.player_id;
-			socket.emit('register', {id: thisPlayerID});
+			for(var playerID in players){
+				if(playerID != data.player_id){
+					console.log("returning player!");
+					player = players[data.player_id]
+					thisPlayerID = data.player_id;
+					socket.emit('register', {id: thisPlayerID});
+				}
+			}
+			
 			/*
 			socket.emit('spawn', player); //tell myself that i have spawned
 			socket.broadcast.emit('spawn', player); //tell others i have spawned
@@ -64,6 +69,8 @@ io.on('connection', function(socket){
 		thisGameID = game.id;
 		games[thisGameID] = game;
 		game.player_left_id = thisPlayerID;
+		game.player_left_location_lat = data.player_left_location_lat;
+		game.player_left_location_long = data.player_left_location_long;
 		players[thisPlayerID].current_games.push(game);
 		console.log('game id is ' + game.id);
 		socket.emit('done_ready_host', {id: game.id});
@@ -88,13 +95,18 @@ io.on('connection', function(socket){
 				found = true;
 				game = games[game_data.id];
 				thisGameID = game_data.id;
+				game.player_right_id = thisPlayerID;
+				game.player_right_location_lat = game_data.player_right_location_lat;
+				game.player_right_location_long = game_data.player_right_location_long;
+				game.remaining_distance_km = calculate_distance(game);
+				game.remaining_distance_miles = game.remaining_distance_km * 0.621371;
 				games[gameID].joinable = false;
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
 				console.log(games[gameID]);
-				sockets[games[gameID].player_left_id].emit('start_game');
+				sockets[games[gameID].player_left_id].emit('start_game_left');
 				//p2 socket
-				sockets[thisPlayerID].emit('start_game');
+				sockets[thisPlayerID].emit('start_game_right');
 			}
 		}
 	if (found == false){
@@ -104,12 +116,37 @@ io.on('connection', function(socket){
 
 	});
 	
+	socket.on('sent_ball_right', function(data) {
+		//start timer, save ball info, emit to both players 
+
+		games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		sockets[thisPlayerID].emit('timer_update', {total_time = games[thisGameID].total_time});
+		sockets[games[thisGameID].player_right_id].emit('going_right'{total_time = games[thisGameID].total_time});
+		
+	});
+	
 	socket.on('disconnect', function() {
 		console.log('a player has disconnected');
 		delete players[thisPlayerID];
-		delete sockets[thisPlayerID];
+		//delete sockets[thisPlayerID];
 		
 		//socket.broadcast.emit('disconnected', player);
 	});
 	
 });
+
+function calculate_distance(game)
+{
+	var lon2 = game.player_right_location_long;
+	var lon1 = game.player_left_location_long;
+	var lat2 = game.player_right_location_lat;
+	var lat1 = game.player_left_location_lat;
+	dlon = lon2 - lon1;
+	dlat = lat2 - lat1;
+	var a = Math.pow((Math.sin(dlat/2)* Math.PI / 180),2) + Math.cos(lat1* Math.PI / 180) * Math.cos(lat2* Math.PI / 180) * Math.pow((Math.sin(dlon/2)* Math.PI / 180),2);
+	var c = 2* Math.atan2( Math.sqrt(a), Math.sqrt(1-a));
+	d = 6373 * c;
+	console.log(d);
+	return d;
+}
