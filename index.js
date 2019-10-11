@@ -104,9 +104,9 @@ io.on('connection', function(socket){
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
 				console.log(games[gameID]);
-				sockets[games[gameID].player_left_id].emit('start_game_left');
+				sockets[games[gameID].player_left_id].emit('start_game_left', {test: 'wahoo!'});
 				//p2 socket
-				sockets[thisPlayerID].emit('start_game_right');
+				sockets[thisPlayerID].emit('start_game_right', {test: 'wahoo!'});
 			}
 		}
 	if (found == false){
@@ -129,7 +129,7 @@ io.on('connection', function(socket){
 	socket.on('disconnect', function() {
 		console.log('a player has disconnected');
 		delete players[thisPlayerID];
-		//delete sockets[thisPlayerID];
+		delete sockets[thisPlayerID];
 		
 		//socket.broadcast.emit('disconnected', player);
 	});
