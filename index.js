@@ -110,8 +110,8 @@ io.on('connection', function(socket){
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
 				console.log(games[gameID]);
-				games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000000001));
-				games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000000001));
+				games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.0000001));
+				games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.0000001));
 				sockets[games[gameID].player_left_id].emit('start_game_left', {total_time: games[thisGameID].total_time});
 				//p2 socket
 				sockets[thisPlayerID].emit('start_game_right', {total_time: games[thisGameID].total_time});
