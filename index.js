@@ -39,8 +39,8 @@ io.on('connection', function(socket){
 					player = players[data.player_id]
 					thisPlayerID = data.player_id;
 					
-					game = games[data.game_id];
-					thisGameID = data.game_id
+					game = games[players[thisPlayerID].current_games[0]];
+					thisGameID = games[players[thisPlayerID].current_games[0]].id;
 					
 					
 					
