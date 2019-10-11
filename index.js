@@ -121,8 +121,8 @@ io.on('connection', function(socket){
 
 		games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
 		games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
-		sockets[thisPlayerID].emit('timer_update', {total_time = games[thisGameID].total_time});
-		sockets[games[thisGameID].player_right_id].emit('going_right'{total_time = games[thisGameID].total_time});
+		sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
+		sockets[games[thisGameID].player_right_id].emit('going_right'{total_time: games[thisGameID].total_time});
 		
 	});
 	
