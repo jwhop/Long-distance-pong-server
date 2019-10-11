@@ -30,15 +30,7 @@ io.on('connection', function(socket){
 	
 			//tell the client that this is our id for the server
 			socket.emit('register', {id: thisPlayerID});
-			/*
-			socket.emit('spawn', player); //tell myself that i have spawned
-			socket.broadcast.emit('spawn', player); //tell others i have spawned
-			//tell myself about everyone else in the game
-			for(var playerID in players){
-				if(playerID != thisPlayerID){
-					socket.emit('spawn', players[playerID]);
-				}
-			}*/
+			
 		}
 		else{
 			for(var playerID in players){
@@ -46,19 +38,28 @@ io.on('connection', function(socket){
 					console.log("returning player!");
 					player = players[data.player_id]
 					thisPlayerID = data.player_id;
-					socket.emit('register', {id: thisPlayerID});
+					
+					game = games[data.game_id];
+					thisGameID = data.game_id
+					
+					
+					
+					if(games[data.game_id].player_left_id == thisPlayerID){
+					
+						socket.emit('continue_left', {test: 'wahoo!'});
+					}
+					else if (games[data.game_id].player_right_id == thisPlayerID){
+						
+						socket.emit('continue_right', {test: 'wahoo!'});
+					}
+					
+					
+					
+					
 				}
 			}
 			
-			/*
-			socket.emit('spawn', player); //tell myself that i have spawned
-			socket.broadcast.emit('spawn', player); //tell others i have spawned
-			//tell myself about everyone else in the game
-			for(var playerID in players){
-				if(playerID != thisPlayerID){
-					socket.emit('spawn', players[playerID]);
-				}
-			}*/
+			
 		}
 	});
 	
