@@ -34,8 +34,9 @@ io.on('connection', function(socket){
 		}
 		else{
 			for(var playerID in players){
-				if(playerID != data.player_id){
+				if(playerID == data.player_id){
 					console.log("returning player!");
+					
 					player = players[data.player_id]
 					thisPlayerID = data.player_id;
 					
