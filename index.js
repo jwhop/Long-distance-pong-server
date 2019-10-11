@@ -129,6 +129,17 @@ io.on('connection', function(socket){
 		
 	});
 	
+	socket.on('sent_ball_left', function(data) {
+		//start timer, save ball info, emit to both players 
+
+		//games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		//games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		//console.log(games[thisGameID].total_time);
+		//sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
+		sockets[games[thisGameID].player_left_id].emit('start_timer',{total_time: games[thisGameID].total_time});
+		
+	});
+	
 	socket.on('disconnect', function() {
 		console.log('a player has disconnected');
 		//delete players[thisPlayerID];
