@@ -49,11 +49,11 @@ io.on('connection', function(socket){
 					
 					
 					
-					if(games[data.game_id].player_left_id == thisPlayerID){
+					if(games[thisGameID].player_left_id == thisPlayerID){
 					
 						socket.emit('continue_left', {test: 'wahoo!'});
 					}
-					else if (games[data.game_id].player_right_id == thisPlayerID){
+					else if (games[thisGameID].player_right_id == thisPlayerID){
 						
 						socket.emit('continue_right', {test: 'wahoo!'});
 					}
