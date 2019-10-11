@@ -168,5 +168,5 @@ function calculate_distance(game)
 	var c = 2* Math.atan2( Math.sqrt(a), Math.sqrt(1-a));
 	d = 6373 * c;
 	console.log(d);
-	return d;
+	return d.toFixed(1);
 }
