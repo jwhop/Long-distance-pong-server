@@ -36,11 +36,12 @@ io.on('connection', function(socket){
 			for(var playerID in players){
 				if(playerID == data.player_id){
 					console.log("returning player!");
-					
+					console.log(data.player_id);
 					player = players[data.player_id]
 					thisPlayerID = data.player_id;
 					
 					game = games[players[thisPlayerID].current_games[0]];
+					console.log(games[players[thisPlayerID].current_games[0]);
 					thisGameID = games[players[thisPlayerID].current_games[0]].id;
 					
 					
