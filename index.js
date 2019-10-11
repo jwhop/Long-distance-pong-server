@@ -104,9 +104,11 @@ io.on('connection', function(socket){
 				players[thisPlayerID].current_games.push(game);
 				//p1 socket
 				console.log(games[gameID]);
-				sockets[games[gameID].player_left_id].emit('start_game_left', {test: 'wahoo!'});
+				games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+				games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+				sockets[games[gameID].player_left_id].emit('start_game_left', {total_time: games[thisGameID].total_time});
 				//p2 socket
-				sockets[thisPlayerID].emit('start_game_right', {test: 'wahoo!'});
+				sockets[thisPlayerID].emit('start_game_right', {total_time: games[thisGameID].total_time});
 			}
 		}
 	if (found == false){
@@ -119,10 +121,10 @@ io.on('connection', function(socket){
 	socket.on('sent_ball_right', function(data) {
 		//start timer, save ball info, emit to both players 
 
-		games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
-		games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
-		console.log(games[thisGameID].total_time);
-		sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
+		//games[thisGameID].remaining_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		//games[thisGameID].total_time = Math.round((games[thisGameID].remaining_distance_km / 0.000005));
+		//console.log(games[thisGameID].total_time);
+		//sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
 		sockets[games[thisGameID].player_right_id].emit('going_right',{total_time: games[thisGameID].total_time});
 		
 	});
