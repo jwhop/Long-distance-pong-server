@@ -131,8 +131,8 @@ io.on('connection', function(socket){
 	
 	socket.on('disconnect', function() {
 		console.log('a player has disconnected');
-		delete players[thisPlayerID];
-		delete sockets[thisPlayerID];
+		//delete players[thisPlayerID];
+		//delete sockets[thisPlayerID];
 		
 		//socket.broadcast.emit('disconnected', player);
 	});
