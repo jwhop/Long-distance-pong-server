@@ -51,11 +51,11 @@ io.on('connection', function(socket){
 					
 					if(games[thisGameID].player_left_id == thisPlayerID){
 					
-						socket.emit('continue_left', {test: 'wahoo!'});
+						socket.emit('continue_left', {test: 'wahoo!', turn: games[thisGameID].turn});
 					}
 					else if (games[thisGameID].player_right_id == thisPlayerID){
 						
-						socket.emit('continue_right', {test: 'wahoo!'});
+						socket.emit('continue_right', {test: 'wahoo!', turn: games[thisGameID].turn});
 					}
 					
 					
