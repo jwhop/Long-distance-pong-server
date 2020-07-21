@@ -132,6 +132,8 @@ io.on('connection', function(socket){
 		//console.log(games[thisGameID].total_time);
 		//sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
 		sockets[games[thisGameID].player_right_id].emit('start_timer',{total_time: games[thisGameID].total_time});
+		games[thisGameID].turn = 'right';
+		
 		
 	});
 	
@@ -143,7 +145,7 @@ io.on('connection', function(socket){
 		//console.log(games[thisGameID].total_time);
 		//sockets[thisPlayerID].emit('timer_update', {total_time: games[thisGameID].total_time});
 		sockets[games[thisGameID].player_left_id].emit('start_timer',{total_time: games[thisGameID].total_time});
-		
+		games[thisGameID].turn = 'left';
 	});
 	
 	socket.on('disconnect', function() {

@@ -22,6 +22,7 @@ module.exports = class Game{
 				this.serve = 0;
 				this.ball_velocity = 0;
 				this.ball_position = 0;
+				this.turn = '';
 		}
 		
 	
