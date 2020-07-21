@@ -2,7 +2,7 @@ var shortid = require('shortid');
 
 module.exports = class Game{
 		constructor(){
-				this.id = shortid.generate();
+				this.id = shortid.generate().toUpperCase();
 				this.player_left_name = '';
 				this.player_right_name = '';
 				this.player_left_id = '';
